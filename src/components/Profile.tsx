@@ -1,6 +1,6 @@
 import React from "react";
 import Text from "./commons/Text";
-import colors from "../constants/colors";
+import { useMediaQuery } from "react-responsive";
 
 export default function Profile() {
     const name = "David Wilfred E. Tuazon";
@@ -10,14 +10,16 @@ export default function Profile() {
         + "With the flexibility to work full-time, I am eager to leverage my analytical and programming skills to contribute as a full-stack developer, "
         + "while continuously expanding my expertise in building scalable and innovative web applications."
 
+    const isBigScreen = useMediaQuery({ minWidth: 768 });
+
     return (
         <div>
             <div style={styles.profile}>
                 <Text
                     style={{
-                        fontSize: 35,
                         padding: 5,
                         margin: 5,
+                        fontSize: isBigScreen ? 35 : 30
                     }}
                     variant='heading'
                 >
@@ -36,8 +38,7 @@ export default function Profile() {
                     <Text 
                         style={{
                             textAlign: 'justify',
-                            fontSize: 20,
-                            padding: 5,
+                            padding: isBigScreen ? 5 : 0,
                         }}
                         variant='title'
                     >
@@ -58,6 +59,6 @@ const styles: {[key: string]: React.CSSProperties} = {
     },
     introduction: {
         // border: '1px solid red',
-        width:'70%',
+        width: '70%',
     },
 }

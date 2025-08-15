@@ -6,6 +6,7 @@ import TextInput from "./commons/TextInput";
 import TextArea from "./commons/TextArea";
 import { mustNotBeEmptyOrSpace, mustBeValidEmail } from "../utils/validators";
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
     isOpen: boolean;
@@ -19,6 +20,7 @@ type Inputs = {
 }
 
 export default function EmailModal({ isOpen, onClose}: Props) {
+    const isBigScreen = useMediaQuery({ minWidth: 768 });
     const [status, setStatus] = useState<string | null>(null);
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>();
 
@@ -48,12 +50,12 @@ export default function EmailModal({ isOpen, onClose}: Props) {
 
     return (
         <div style={styles.overlay}>
-            <div style={styles.modal}>
+            <div style={Object.assign({}, styles.modal, !isBigScreen && styles.smallscreenModal)}>
                 <div style={styles.header}>
                     <Text variant="title">
                     Send me a message.
                 </Text>
-                <Button title="x" onButtonPress={onClose} style={styles.button} />
+                <Button title="x" onButtonPress={onClose} style={{...styles.button, left: isBigScreen ? '45%' : '30%' }} />
                 </div>
                 <TextInput 
                     textProps={{
@@ -89,7 +91,7 @@ export default function EmailModal({ isOpen, onClose}: Props) {
                     }}
                     error={errors.message?.message}
                 />
-                <Button title="Submit" onButtonPress={handleSubmit(onSubmit)} style={styles.submit} />
+                <Button title="Submit" onButtonPress={handleSubmit(onSubmit)} style={{...styles.submit, left: isBigScreen ? '64%' : '60%'}} />
                 
                 {/* {status && <p>{status}</p>} */}
             </div>
@@ -121,13 +123,24 @@ const styles: {[key: string]: React.CSSProperties} = {
         height: '90%',
         position: 'relative' as const,
     },
+    smallscreenModal: {
+        // border: '1px solid red',
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#f4f4f4',
+        padding: '2rem',
+        borderRadius: '10px',
+        width: '80%',
+        height: '70%',
+        position: 'relative' as const,
+    },
     button: {
         width: '7.5%',
         padding: 10,
         borderRadius: 12,
         alignContent: 'center',
         position: 'relative',
-        left: '45%',
+        // left: '45%',
     },
     header: {
         // border: '1px solid red',
@@ -140,6 +153,6 @@ const styles: {[key: string]: React.CSSProperties} = {
         borderRadius: 12,
         alignContent: 'center',
         position: 'relative',
-        left: '64%'
+        // left: '64%'
     }
 };

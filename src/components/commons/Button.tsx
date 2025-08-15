@@ -1,6 +1,6 @@
 import React from "react";
 import colors from "../../constants/colors";
-import typography from "../../constants/typography";
+import { useMediaQuery } from "react-responsive";
 
 type Props = {
     style?: React.CSSProperties,
@@ -9,6 +9,7 @@ type Props = {
     disabled?: boolean
 }
 export default function Button(props: Props) {
+  const isBigScreen = useMediaQuery({ minWidth: 768 }); 
 
    let {
     style,
@@ -18,10 +19,20 @@ export default function Button(props: Props) {
    } = props;
 
     return (
-        <div style={Object.assign({}, styles.container, style, props.disabled && styles.disabled)}
+        <div style={Object.assign(
+            {}, 
+            styles.container,
+            style, 
+            props.disabled && styles.disabled, 
+            !isBigScreen && styles.smallScreen
+          )}
             onClick={onButtonPress}
         >
-            <p style={Object.assign({}, styles.title)}>
+            <p style={Object.assign(
+                {},
+                styles.title,
+                !isBigScreen && styles.smallText
+              )}>
                 {title}
             </p>
         </div>
@@ -48,5 +59,14 @@ const styles: {[key: string]: React.CSSProperties} = {
   disabled: {
     pointerEvents: 'none',
     backgroundColor: 'white'
+  },
+  smallScreen: {
+    // border: '3px solid red',
+    background: colors.secondary,
+    padding: 10, margin: 10,
+    borderRadius: 12,
+  },
+  smallText: {
+    fontSize: 15,
   }
 }

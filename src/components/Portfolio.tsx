@@ -3,6 +3,7 @@ import Text from "./commons/Text";
 import Button from "./commons/Button";
 import { useNavigate } from "react-router-dom";
 import EmailModal from "./EmailModal";
+import { useMediaQuery } from "react-responsive";
 
 type Props = {
     viewResume: () => void,
@@ -11,12 +12,13 @@ type Props = {
 }
 
 export default function Portfolio(props: Props) {
+    const isBigScreen = useMediaQuery({ minWidth: 768 });
     const navigate = useNavigate()
 
     return (
         <div>
             <div style={styles.container}>
-                <div style={styles.buttons}>
+                <div style={Object.assign({}, styles.buttons, !isBigScreen && styles.smallButtons)}>
                     <Button
                         title="Email me"
                         onButtonPress={() => props.setIsModalOpen(prev => !prev)}
@@ -49,4 +51,9 @@ const styles: {[key: string]: React.CSSProperties} = {
         display: 'flex',
         flexDirection: 'row',
     },
+    smallButtons: {
+        // border: '1px solid red',
+        // display: 'flex',
+        // flexDirection: 'column',
+    }
 }

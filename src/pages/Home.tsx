@@ -10,7 +10,8 @@ export default function Home() {
     const isBigScreen = useMediaQuery({ minWidth: 768 });
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const underConstruction = " 🚧 This portfolio is still under construction. Check back soon for new projects and improvements! 🚧";
+    const underConstruction = " 🚧 This portfolio is still under construction."
+                            + "Check back soon for new projects and improvements! 🚧";
 
     const viewResume = async () => {
         window.open(`${process.env.REACT_APP_API_URL}/api/david/resume`, 'blank');
@@ -22,7 +23,7 @@ export default function Home() {
             ...styles.root,
         }}>
             <div style={styles.notif}>
-                <Text style={{padding: 5, margin: 5}} variant="subheading">
+                <Text style={Object.assign({padding: 5, margin: 5}, !isBigScreen && styles.smallNotif)} variant="subheading">
                     {underConstruction}
                 </Text>
             </div>
@@ -46,7 +47,6 @@ const styles: {[key: string]: React.CSSProperties} = {
         height: '100%',
         width: '100%',
         backdropFilter: 'blur(30px)', WebkitBackdropFilter: 'blur(30px)',
-        // zIndex: 1,
     },
     content: {
         display: 'flex',
@@ -68,5 +68,8 @@ const styles: {[key: string]: React.CSSProperties} = {
         border: '1px solid rgba(255, 255, 255, 0.3)',
         borderRadius: '18px',
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
+    },
+    smallNotif: {
+        fontSize: 15,
     }
 }
