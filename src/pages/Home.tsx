@@ -27,7 +27,7 @@ export default function Home() {
                     {underConstruction}
                 </Text>
             </div>
-            <div style={styles.content}>
+            <div style={{...styles.container, height: isBigScreen ? '80%' : '70%'}}>
                 <Profile />
                 <Portfolio viewResume={viewResume} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />   
             </div>
@@ -48,12 +48,12 @@ const styles: {[key: string]: React.CSSProperties} = {
         width: '100%',
         backdropFilter: 'blur(30px)', WebkitBackdropFilter: 'blur(30px)',
     },
-    content: {
+    container: {
         display: 'flex',
         flexDirection:'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '80%',
+        
         width: '80%',
         background: 'rgba(255, 255, 255, .85)',
         border: '1px solid rgba(255, 255, 255, 0.3)',
@@ -63,13 +63,13 @@ const styles: {[key: string]: React.CSSProperties} = {
     notif: {
         // border: '1px solid red',
         position: 'absolute',
-        bottom: 10,
+        top: 10,
         background: 'rgba(255, 255, 255, .85)',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         borderRadius: '18px',
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
     },
     smallNotif: {
-        fontSize: 15,
+        fontSize: '3vw',
     }
 }

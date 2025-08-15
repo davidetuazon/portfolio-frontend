@@ -41,17 +41,17 @@ const styles: {[key: string]: React.CSSProperties} = {
         // border: '1px solid red',
     },
     heading: {
-        fontSize: 30,
+        fontSize: '2.2vw',
         textAlign: 'center',
         fontFamily: 'Poppins-Black',
     },
     subheading: {
-        fontSize: 20,
+        fontSize: '1.7vw',
         textAlign: 'center',
         fontFamily: 'Poppins-Black',
     },
     title: {
-        fontSize: 18,
+        fontSize: '1.2vw',
         textAlign: 'center',
         fontFamily: 'Poppins-Medium',
     },

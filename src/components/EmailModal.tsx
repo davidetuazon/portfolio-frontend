@@ -52,10 +52,10 @@ export default function EmailModal({ isOpen, onClose}: Props) {
         <div style={styles.overlay}>
             <div style={Object.assign({}, styles.modal, !isBigScreen && styles.smallscreenModal)}>
                 <div style={styles.header}>
-                    <Text variant="title">
+                    <Text variant="heading" style={{fontSize: isBigScreen? '1.2vw' : '4.5vw'}}>
                     Send me a message.
                 </Text>
-                <Button title="x" onButtonPress={onClose} style={{...styles.button, left: isBigScreen ? '45%' : '30%' }} />
+                <Button title="x" onButtonPress={onClose} style={{...styles.button, left: isBigScreen ? '45%' : '17%' }} />
                 </div>
                 <TextInput 
                     textProps={{
@@ -128,10 +128,9 @@ const styles: {[key: string]: React.CSSProperties} = {
         display: 'flex',
         flexDirection: 'column',
         background: '#f4f4f4',
-        padding: '2rem',
         borderRadius: '10px',
-        width: '80%',
-        height: '70%',
+        width: '70%',
+        height: '89%',
         position: 'relative' as const,
     },
     button: {

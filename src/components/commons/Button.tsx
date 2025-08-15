@@ -51,7 +51,7 @@ const styles: {[key: string]: React.CSSProperties} = {
   },
   title: {
     margin: 0,
-    fontSize: 25,
+    fontSize: '1.5vw',
     textAlign: 'center',
     fontFamily: 'Poppins-Black',
     color: colors.white,
@@ -63,10 +63,10 @@ const styles: {[key: string]: React.CSSProperties} = {
   smallScreen: {
     // border: '3px solid red',
     background: colors.secondary,
-    padding: 10, margin: 10,
+    padding: 7, margin: 7,
     borderRadius: 12,
   },
   smallText: {
-    fontSize: 15,
+    fontSize: '4vw',
   }
 }

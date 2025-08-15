@@ -19,7 +19,7 @@ export default function Profile() {
                     style={{
                         padding: 5,
                         margin: 5,
-                        fontSize: isBigScreen ? 35 : 30
+                        fontSize: isBigScreen ? '2.5vw' : '6vw'
                     }}
                     variant='heading'
                 >
@@ -29,6 +29,7 @@ export default function Profile() {
                     style={{
                         padding: 5,
                         margin: 5,
+                        fontSize: isBigScreen ? '1.5vw' : '4vw'
                     }}
                     variant='subheading'
                 >
@@ -39,6 +40,7 @@ export default function Profile() {
                         style={{
                             textAlign: 'justify',
                             padding: isBigScreen ? 5 : 0,
+                            fontSize: isBigScreen ? '1.5vw' : '3vw'
                         }}
                         variant='title'
                     >
