@@ -1,0 +1,12 @@
+{
+  // Hide ESLint warnings (like unused vars)
+  "eslint.quiet": true,
+
+  // Optional: Auto-fix ESLint issues on save
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // Optional: Hide lightbulb suggestions
+  "editor.lightbulb.enabled": "off"
+}
