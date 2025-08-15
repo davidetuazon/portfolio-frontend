@@ -10,7 +10,7 @@ export default function Home() {
     const isBigScreen = useMediaQuery({ minWidth: 768 });
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const underConstruction = " 🚧 This portfolio is still under construction. "
+    const underConstruction = " 🚧 NOTICE: This portfolio is still under construction. "
                             + "Check back soon for new projects and improvements! 🚧";
 
     const viewResume = async () => {
@@ -43,10 +43,11 @@ const styles: {[key: string]: React.CSSProperties} = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: colors.secondary,
+        backgroundColor: colors.secondary,
         height: '100%',
         width: '100%',
         backdropFilter: 'blur(30px)', WebkitBackdropFilter: 'blur(30px)',
+        overflow: 'auto'
     },
     container: {
         display: 'flex',
@@ -55,7 +56,7 @@ const styles: {[key: string]: React.CSSProperties} = {
         justifyContent: 'center',
         
         width: '80%',
-        background: 'rgba(255, 255, 255, .85)',
+        backgroundColor: 'rgba(255, 255, 255, .85)',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         borderRadius: '18px',
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
@@ -64,7 +65,7 @@ const styles: {[key: string]: React.CSSProperties} = {
         // border: '1px solid red',
         position: 'absolute',
         top: 10,
-        background: 'rgba(255, 255, 255, .85)',
+        backgroundColor: 'rgba(255, 255, 255, .85)',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         borderRadius: '18px',
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',

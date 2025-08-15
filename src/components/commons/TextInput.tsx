@@ -37,7 +37,7 @@ export default function TextInput(props: Props) {
 
 const styles: {[key: string]: React.CSSProperties} = {
     container: {
-        background: colors.white,
+        backgroundColor: colors.white,
         border: '2px solid #0066FF',
         borderRadius: 12,
         paddingLeft: 15,
