@@ -10,6 +10,8 @@ export default function Home() {
     const isBigScreen = useMediaQuery({ minWidth: 768 });
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const underConstruction = " 🚧 This portfolio is still under construction. Check back soon for new projects and improvements! 🚧";
+
     const viewResume = async () => {
         window.open(`${process.env.REACT_APP_API_URL}/api/david/resume`, 'blank');
     };
@@ -21,7 +23,7 @@ export default function Home() {
         }}>
             <div style={styles.notif}>
                 <Text style={{padding: 5, margin: 5}} variant="subheading">
-                    NOTICE: This portfolio is still under construction.
+                    {underConstruction}
                 </Text>
             </div>
             <div style={styles.content}>
@@ -62,7 +64,6 @@ const styles: {[key: string]: React.CSSProperties} = {
         // border: '1px solid red',
         position: 'absolute',
         bottom: 10,
-        width: '40%',
         background: 'rgba(255, 255, 255, .85)',
         border: '1px solid rgba(255, 255, 255, 0.3)',
         borderRadius: '18px',
