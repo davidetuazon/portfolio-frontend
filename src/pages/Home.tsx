@@ -10,7 +10,7 @@ export default function Home() {
     const isBigScreen = useMediaQuery({ minWidth: 768 });
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const underConstruction = " 🚧 This portfolio is still under construction."
+    const underConstruction = " 🚧 This portfolio is still under construction. "
                             + "Check back soon for new projects and improvements! 🚧";
 
     const viewResume = async () => {

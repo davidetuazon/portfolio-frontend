@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { contactForm } from "../services/api";
 import Button from "./commons/Button";
 import Text from "./commons/Text";
@@ -7,6 +7,7 @@ import TextArea from "./commons/TextArea";
 import { mustNotBeEmptyOrSpace, mustBeValidEmail } from "../utils/validators";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMediaQuery } from 'react-responsive';
+import { throttle } from 'lodash';
 
 interface Props {
     isOpen: boolean;
@@ -24,29 +25,35 @@ export default function EmailModal({ isOpen, onClose}: Props) {
     const [status, setStatus] = useState<string | null>(null);
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>();
 
-    if (!isOpen) return null;
+    const handleClose = () => {
+        reset();
+        onClose();
+    }
+    
+    const onSubmit: SubmitHandler<Inputs> = useCallback(
+        throttle(async (data) => {
+            console.log("form data: ", data);
 
-    const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        console.log('form data: ', data);
-
-        try {
-            let payload: {
-                name: string,
-                email: string,
-                message: string
-            } = {
+            try {
+            const payload = {
                 name: data.name,
                 email: data.email,
                 message: data.message
-            }
+            };
 
             await contactForm(payload);
+            reset();
+            onClose();
 
-        } catch (e: any) {
+            } catch (e: any) {
             setStatus("Failed to send message");
-            throw(e);
-        }
-    }
+            throw e;
+            }
+        }, 2000, { trailing: true }),
+        [reset, onClose]
+    );
+
+    if (!isOpen) return null;
 
     return (
         <div style={styles.overlay}>
@@ -55,7 +62,9 @@ export default function EmailModal({ isOpen, onClose}: Props) {
                     <Text variant="heading" style={{fontSize: isBigScreen? '1.2vw' : '4.5vw'}}>
                     Send me a message.
                 </Text>
-                <Button title="x" onButtonPress={onClose} style={{...styles.button, left: isBigScreen ? '45%' : '17%' }} />
+                <Button title="x" onButtonPress={handleClose} 
+                    style={{...styles.button, left: isBigScreen ? '45%' : '17%' }} 
+                />
                 </div>
                 <TextInput 
                     textProps={{

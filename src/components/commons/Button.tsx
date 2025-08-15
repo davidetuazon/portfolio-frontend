@@ -62,7 +62,7 @@ const styles: {[key: string]: React.CSSProperties} = {
   },
   smallScreen: {
     // border: '3px solid red',
-    background: colors.secondary,
+    background: colors.primary,
     padding: 7, margin: 7,
     borderRadius: 12,
   },
