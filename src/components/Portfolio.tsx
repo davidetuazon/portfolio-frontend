@@ -40,7 +40,7 @@ export default function Portfolio(props: Props) {
 
 const styles: {[key: string]: React.CSSProperties} = {
     container: {
-        // border: '1px solid black',
+        // border: '1px solid blue',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

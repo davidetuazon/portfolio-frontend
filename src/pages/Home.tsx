@@ -28,8 +28,10 @@ export default function Home() {
                 </Text>
             </div>
             <div style={{...styles.container, height: isBigScreen ? '80%' : '70%'}}>
-                <Profile />
-                <Portfolio viewResume={viewResume} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />   
+                <div style={styles.content}>
+                    <Profile />
+                    <Portfolio viewResume={viewResume} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+                </div>
             </div>
         </div>
     );
@@ -47,12 +49,11 @@ const styles: {[key: string]: React.CSSProperties} = {
         height: '100%',
         width: '100%',
         backdropFilter: 'blur(30px)', WebkitBackdropFilter: 'blur(30px)',
-        overflow: 'auto'
+        overflowY: 'auto'
     },
     container: {
         display: 'flex',
         flexDirection:'column',
-        alignItems: 'center',
         justifyContent: 'center',
         
         width: '80%',
@@ -60,6 +61,13 @@ const styles: {[key: string]: React.CSSProperties} = {
         border: '1px solid rgba(255, 255, 255, 0.3)',
         borderRadius: '18px',
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
+    },
+    content: {
+        // border: '1px solid red',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        overflowY: 'auto',
     },
     notif: {
         // border: '1px solid red',
@@ -71,6 +79,6 @@ const styles: {[key: string]: React.CSSProperties} = {
         boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
     },
     smallNotif: {
-        fontSize: '3vw',
+        fontSize: '2.5vw',
     }
 }

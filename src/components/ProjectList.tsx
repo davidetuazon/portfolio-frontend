@@ -13,6 +13,7 @@ type Project = {
 
 type Props = {
     selected: Project[],
+    isBigScreen: boolean,
 }
 
 export default function ProjectList(props: Props) {
@@ -21,7 +22,7 @@ export default function ProjectList(props: Props) {
             {props.selected?.length ? (
                 <div>
                     {props.selected.map(p => (
-                        <ProjectDetails project={p} key={p.id} />
+                        <ProjectDetails isBigScreen={props.isBigScreen} project={p} key={p.id} />
                         )
                     )}
                 </div>

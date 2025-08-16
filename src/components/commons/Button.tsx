@@ -47,7 +47,7 @@ const styles: {[key: string]: React.CSSProperties} = {
     padding: 23,
     margin: 10,
     cursor: 'pointer',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
   },
   title: {
     margin: 0,

@@ -38,14 +38,14 @@ export default function Projects() {
         <>
             { !isBigScreen &&
                 (
-                    <Joke isBigScreen={isBigScreen} />
+                    // <Joke isBigScreen={isBigScreen} />
 
-                    // <SmallNavigation 
-                    //     isBigScreen={isBigScreen}
-                    //     projects={projects}
-                    //     selected={selected}
-                    //     setSelected={setSelected}
-                    // />
+                    <SmallNavigation 
+                        isBigScreen={isBigScreen}
+                        projects={projects}
+                        selected={selected}
+                        setSelected={setSelected}
+                    />
                 )
             }
 
@@ -74,7 +74,7 @@ export default function Projects() {
                     </div>
                     <div style={styles.container2}>
                         <div style={styles.content}>
-                            <ProjectList selected={selected}/>
+                            <ProjectList isBigScreen={isBigScreen} selected={selected}/>
                         </div>
                     </div>
                 </div>
