@@ -32,7 +32,7 @@ export default function SmallNavigation(props: Props) {
                 <div style={styles.navigation}>
                     <div style={styles.header}>
                         <Text variant="heading" style={{ fontSize: props.isBigScreen ? "2vw" : "6vw" }}>
-                            Projects
+                            { props.projects.length > 0 ? "Projects" : "!Fetching data... 🚀 Hold tight" }
                         </Text>
                     </div>
                     {props.projects.map(p => (
@@ -52,7 +52,7 @@ export default function SmallNavigation(props: Props) {
                         <>
                             <div style={styles.overlay} onClick={(e) => props.setSelected([])}>
                                 <div style={styles.projectModal} onClick={(e) => e.stopPropagation()}>
-                                    <ProjectList isBigScreen={props.isBigScreen} selected={props.selected} />
+                                    <ProjectList isBigScreen={props.isBigScreen} projects={props.projects} selected={props.selected} />
                                 </div>
                             </div>
                         </>
@@ -91,6 +91,10 @@ const styles: {[key: string]: React.CSSProperties} = {
     },
     header: {
         // border: '1px solid red',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
         backgroundColor: colors.secondary,
         color: colors.white,
         width: '100%',

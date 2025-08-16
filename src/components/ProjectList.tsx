@@ -12,6 +12,7 @@ type Project = {
 }
 
 type Props = {
+    projects: Project[],
     selected: Project[],
     isBigScreen: boolean,
 }
@@ -29,7 +30,8 @@ export default function ProjectList(props: Props) {
             ) : (
                 <div style={styles.caption}>
                     <Text variant="heading">
-                        Click a project to see details
+                        { props?.projects.length ? 
+                        "Click a project to see details" : "Fetching data... 🚀 Hold tight!" }
                     </Text>
                 </div>
             )}

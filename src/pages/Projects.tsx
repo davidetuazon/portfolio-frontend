@@ -27,8 +27,12 @@ export default function Projects() {
 
     useEffect(() => {
         const fetchProjects = async () => {
-            const res = await getProjects();
-            setProjects(res);
+            try {
+                const res = await getProjects();
+                setProjects(res);
+            } catch (e) {
+                console.error({ message: "Failed to fetch data", e });
+            }
         }
         fetchProjects();
     }, []);
@@ -55,9 +59,11 @@ export default function Projects() {
                     <div style={styles.container}>
                         <div style={styles.navigation}>
                             <div style={styles.header}>
-                                <Text variant="heading">
-                                    Projects
-                                </Text>
+                                {projects?.length > 0 ? (
+                                    <Text variant="heading">
+                                        Projects
+                                    </Text>
+                                ) : null }
                             </div>
                             {projects.map(p => (
                                 <div key={p.id} style={styles.titles}>
@@ -74,7 +80,7 @@ export default function Projects() {
                     </div>
                     <div style={styles.container2}>
                         <div style={styles.content}>
-                            <ProjectList isBigScreen={isBigScreen} selected={selected}/>
+                            <ProjectList isBigScreen={isBigScreen} projects={projects} selected={selected}/>
                         </div>
                     </div>
                 </div>
