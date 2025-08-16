@@ -8,6 +8,7 @@ import { mustNotBeEmptyOrSpace, mustBeValidEmail } from "../utils/validators";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useMediaQuery } from 'react-responsive';
 import { throttle } from 'lodash';
+import MessagePrompt from "./commons/MessagePrompt";
 
 interface Props {
     isOpen: boolean;
@@ -20,12 +21,15 @@ type Inputs = {
     message: string
 }
 
+type StatusType = 'idle' | 'loading' | 'success' | 'error';
+
 export default function EmailModal({ isOpen, onClose}: Props) {
     const isBigScreen = useMediaQuery({ minWidth: 768 });
-    const [status, setStatus] = useState<string | null>(null);
+    const [status, setStatus] = useState<StatusType>('idle');
     const { register, handleSubmit, reset, formState: { errors } } = useForm<Inputs>();
 
     const handleClose = () => {
+        setStatus('idle');
         reset();
         onClose();
     }
@@ -33,37 +37,42 @@ export default function EmailModal({ isOpen, onClose}: Props) {
     const onSubmit: SubmitHandler<Inputs> = useCallback(
         throttle(async (data) => {
             console.log("form data: ", data);
+            setStatus('loading');
 
             try {
-            const payload = {
-                name: data.name,
-                email: data.email,
-                message: data.message
-            };
+                const payload = {
+                    name: data.name,
+                    email: data.email,
+                    message: data.message
+                };
 
-            await contactForm(payload);
-            reset();
-            onClose();
-
+                const res = await contactForm(payload);
+                if (res.success) {
+                    setStatus('success');
+                } else {
+                    setStatus('error');
+                }
             } catch (e: any) {
-            setStatus("Failed to send message");
+                console.error({ message: "Failed to send message"}, e);
+                setStatus('error');
             throw e;
             }
+
         }, 2000, { trailing: true }),
-        [reset, onClose]
-    );
+    [setStatus]);
 
     if (!isOpen) return null;
 
     return (
-        <div style={styles.overlay}>
-            <div style={Object.assign({}, styles.modal, !isBigScreen && styles.smallscreenModal)}>
+        <div style={styles.overlay} onClick={() => status !== 'loading' ? handleClose() : null}>
+            {status === 'idle' && (
+            <div style={Object.assign({}, styles.modal, !isBigScreen && styles.smallscreenModal)} onClick={(e) => e.stopPropagation()}>
                 <div style={styles.header}>
-                    <Text variant="heading" style={{fontSize: isBigScreen? '1.2vw' : '4.5vw'}}>
+                    <Text variant="heading" style={{fontSize: isBigScreen? '1.7vw' : '4.5vw'}}>
                     Send me a message.
                 </Text>
                 <Button title="x" onButtonPress={handleClose} 
-                    style={{...styles.button, left: isBigScreen ? '45%' : '17%' }} 
+                    style={styles.button} 
                 />
                 </div>
                 <TextInput 
@@ -79,7 +88,7 @@ export default function EmailModal({ isOpen, onClose}: Props) {
                 />
                 <TextInput
                     textProps={{
-                        placeholder: 'Email',
+                        placeholder: 'Company/Your Email',
                         ...register("email", {
                             validate: {
                                 mustNotBeEmptyOrSpace,
@@ -100,10 +109,19 @@ export default function EmailModal({ isOpen, onClose}: Props) {
                     }}
                     error={errors.message?.message}
                 />
-                <Button title="Submit" onButtonPress={handleSubmit(onSubmit)} style={{...styles.submit, left: isBigScreen ? '64%' : '60%'}} />
-                
-                {/* {status && <p>{status}</p>} */}
+                <Button 
+                    title='Send'
+                    onButtonPress={handleSubmit(onSubmit)} 
+                    disabled={status !== 'idle'}
+                    style={{...styles.submit, left: isBigScreen ? '64%' : '60%'}}
+                 />
             </div>
+            )}
+
+            {status !== 'idle' && (
+                <MessagePrompt Status={status} SetStatus={setStatus} />
+            )}
+
         </div>
     );
 }
@@ -119,7 +137,7 @@ const styles: {[key: string]: React.CSSProperties} = {
         backgroundColor: 'rgba(0,0,0,0.5)',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
         overflowY: 'hidden',
     },
@@ -128,11 +146,10 @@ const styles: {[key: string]: React.CSSProperties} = {
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#f4f4f4',
-        margin: 10,
+        // margin: 10,
         padding: 30,
         borderRadius: '12px',
         width: '30%',
-        height: '90%',
         position: 'relative' as const,
         overflowY: 'auto',
     },
@@ -144,7 +161,6 @@ const styles: {[key: string]: React.CSSProperties} = {
         borderRadius: '10px',
         width: '70%',
         maxWidth: '70%',
-        height: '89%',
         position: 'relative' as const,
     },
     button: {
@@ -159,6 +175,7 @@ const styles: {[key: string]: React.CSSProperties} = {
         // border: '1px solid red',
         display: 'flex',
         flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     submit: {
          width: '30%',
